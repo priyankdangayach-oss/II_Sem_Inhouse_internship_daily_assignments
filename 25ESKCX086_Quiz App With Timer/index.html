@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QuizMaster — Live Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="stage">
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+
+  <div class="app">
+
+    <!-- START SCREEN -->
+    <section class="screen screen--start is-active" id="screen-start">
+      <div class="ring ring--logo" aria-hidden="true">
+        <svg viewBox="0 0 120 120">
+          <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+          <circle class="ring-progress" cx="60" cy="60" r="52" style="stroke-dashoffset:82;"></circle>
+        </svg>
+        <span class="ring-mark">Q</span>
+      </div>
+      <p class="eyebrow">Live Quiz Round</p>
+      <h1 class="title-xl">QuizMaster</h1>
+      <p class="subtitle">10 questions · 12 seconds each · no looking back</p>
+      <ul class="rules">
+        <li><span class="rule-dot"></span>Each question locks after 12 seconds</li>
+        <li><span class="rule-dot"></span>No revisiting a previous question</li>
+        <li><span class="rule-dot"></span>Your score is tallied live on screen</li>
+      </ul>
+      <button class="btn btn--primary" id="btn-start">Start Quiz</button>
+    </section>
+
+    <!-- QUIZ SCREEN -->
+    <section class="screen screen--quiz" id="screen-quiz">
+      <header class="quiz-head">
+        <div class="progress-block">
+          <p class="eyebrow eyebrow--tight">Question <span id="q-current">1</span> / <span id="q-total">10</span></p>
+          <div class="dots" id="dots"></div>
+        </div>
+
+        <div class="score-chip">
+          <span class="score-label">Score</span>
+          <span class="score-value" id="score-value">0</span>
+        </div>
+
+        <div class="ring ring--timer">
+          <svg viewBox="0 0 120 120">
+            <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+            <circle class="ring-progress" id="timer-ring" cx="60" cy="60" r="52"></circle>
+          </svg>
+          <span class="ring-mark ring-mark--timer" id="timer-value">10</span>
+        </div>
+      </header>
+
+      <div class="question-block">
+        <p class="category-tag" id="q-category">General Knowledge</p>
+        <h2 class="question-text" id="q-text">Question text goes here</h2>
+      </div>
+
+      <div class="options-grid" id="options-grid">
+        <!-- options injected by JS -->
+      </div>
+
+      <p class="status-line" id="status-line" aria-live="polite">&nbsp;</p>
+    </section>
+
+    <!-- RESULT SCREEN -->
+    <section class="screen screen--result" id="screen-result">
+      <p class="eyebrow">Round Complete</p>
+      <div class="ring ring--score">
+        <svg viewBox="0 0 120 120">
+          <circle class="ring-track" cx="60" cy="60" r="52"></circle>
+          <circle class="ring-progress" id="score-ring" cx="60" cy="60" r="52"></circle>
+        </svg>
+        <div class="ring-score-inner">
+          <span class="ring-score-num" id="final-score">0</span>
+          <span class="ring-score-den">/ 10</span>
+        </div>
+      </div>
+      <h2 class="grade-text" id="grade-text">Nicely done</h2>
+      <p class="grade-sub" id="grade-sub">You answered 0 of 10 correctly.</p>
+
+      <div class="breakdown" id="breakdown"></div>
+
+      <button class="btn btn--primary" id="btn-restart">Restart Quiz</button>
+    </section>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
