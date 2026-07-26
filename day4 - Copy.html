@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pravah Fest 2026</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      margin: 0;
+      background: #f5f5f5;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    section {
+      padding: 20px;
+      margin: 10px;
+      background: white;
+      border-radius: 10px;
+    }
+
+    .card {
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      margin: 5px;
+      border-radius: 8px;
+      display: inline-block;
+    }
+
+    input, select {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+    }
+
+    button {
+      background: green;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table, th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>PRAVAH FEST 2026</h1>
+  <p>10 July - 5 Day Mega College Fest</p>
+</header>
+
+<!-- ABOUT -->
+<section>
+  <h2>About Fest</h2>
+  <p>
+    Pravah Fest is a 5-day celebration including sports, fashion, DJ night and cultural events.
+  </p>
+</section>
+
+<!-- EVENTS -->
+<section>
+  <h2>Events</h2>
+
+  <div class="card">🏏 Sports (Day 1-2)</div>
+  <div class="card">👗 Fashion Show (Day 3)</div>
+  <div class="card">🎧 DJ Night (Day 4)</div>
+  <div class="card">🏆 Closing (Day 5)</div>
+</section>
+
+<!-- REGISTRATION -->
+<section>
+  <h2>Register Here</h2>
+
+  <form id="form">
+    <input type="text" id="name" placeholder="Name" required>
+    <input type="text" id="college" placeholder="College" required>
+    <input type="text" id="dept" placeholder="Department" required>
+    <input type="text" id="phone" placeholder="Phone" required>
+
+    <select id="event">
+      <option>Sports</option>
+      <option>Fashion Show</option>
+      <option>DJ Night</option>
+    </select>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <p id="msg"></p>
+</section>
+
+<!-- LIST -->
+<section>
+  <h2>Registered Students</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>College</th>
+        <th>Dept</th>
+        <th>Phone</th>
+        <th>Event</th>
+      </tr>
+    </thead>
+    <tbody id="list"></tbody>
+  </table>
+</section>
+
+<script>
+
+let students = JSON.parse(localStorage.getItem("students")) || [];
+
+function render(){
+  let list = document.getElementById("list");
+  list.innerHTML = "";
+
+  students.forEach(s => {
+    list.innerHTML += `
+      <tr>
+        <td>${s.name}</td>
+        <td>${s.college}</td>
+        <td>${s.dept}</td>
+        <td>${s.phone}</td>
+        <td>${s.event}</td>
+      </tr>
+    `;
+  });
+}
+
+render();
+
+document.getElementById("form").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  let s = {
+    name: name.value,
+    college: college.value,
+    dept: dept.value,
+    phone: phone.value,
+    event: event.value
+  };
+
+  students.push(s);
+  localStorage.setItem("students", JSON.stringify(students));
+
+  // Word file download
+  let data =
+`PRAVAH FEST REGISTRATION
+Name: ${s.name}
+College: ${s.college}
+Dept: ${s.dept}
+Phone: ${s.phone}
+Event: ${s.event}`;
+
+  let blob = new Blob([data], {type:"application/msword"});
+  let a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = s.name + ".doc";
+  a.click();
+
+  render();
+  document.getElementById("msg").innerText = "Registered Successfully!";
+  document.getElementById("form").reset();
+});
+
+</script>
+
+</body>
+</html>
